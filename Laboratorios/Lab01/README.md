@@ -7,6 +7,7 @@
 
 ## Estructura del Proyecto
 
+```
 Lab01/
 ├── pyproject.toml          # Configuración de Poetry y herramientas
 ├── .pre-commit-config.yaml # Configuración de hooks pre-commit
@@ -15,7 +16,7 @@ Lab01/
     ├── __init__.py        # Inicialización del paquete
     ├── ejemplo_con_errores.py    # Código con infracciones PEP 8
     └── ejemplo_corregido.py      # Código corregido siguiendo PEP 8
-
+```
 
 ### 1. Instalación de Poetry
 
