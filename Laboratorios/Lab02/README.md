@@ -53,42 +53,42 @@ except Exception as e:
 ### 2. Estructuras de Control
 
 
-# Condicional
+#### Condicional
 if calificacion >= 70:
     print("Aprobado")
 else:
     print("Reprobado")
 
-# Bucle for
+#### Bucle for
 for estudiante in estudiantes:
     print(estudiante['nombre'])
 
-# List comprehension
+#### List comprehension
 aprobados = [e for e in estudiantes if e['calificacion'] >= 70]
 
 
 ### 3. Tipos de Datos y Colecciones
 
 
-# Lista (mutable, ordenada)
+#### Lista (mutable, ordenada)
 numeros = [1, 2, 3, 4, 5]
 
-# Diccionario (clave-valor)
+#### Diccionario (clave-valor)
 persona = {"nombre": "Luis", "edad": 22}
 
-# Tupla (inmutable, ordenada)
+#### Tupla (inmutable, ordenada)
 coordenadas = (10, 20)
 
-# Set (único, desordenado)
+#### Set (único, desordenado)
 categorias = {"Muebles", "Libros", "Electrónicos"}
 
 
-### 4. Expresiones Regulares
+#### 4. Expresiones Regulares
 
 
 import re
 
-# Validar formato de fecha
+#### Validar formato de fecha
 patron = r'^\d{4}-\d{2}-\d{2}$'
 if re.match(patron, fecha_str):
     print("Fecha válida")
@@ -96,22 +96,22 @@ if re.match(patron, fecha_str):
 
 ## Errores Comunes y Soluciones
 
-### 1. IndentationError
+#### 1. IndentationError
 **Problema**: Espacios inconsistentes
 **Solución**: Usar siempre 4 espacios o configurar tu editor
 
-### 2. KeyError
+#### 2. KeyError
 **Problema**: Acceder a clave que no existe
 **Solución**: Usar `.get()` con valor por defecto
 
-# Incorrecto
+#### Incorrecto
 nombre = estudiante['nombre']  # Puede fallar
 
-# Correcto
+#### Correcto
 nombre = estudiante.get('nombre', 'Desconocido')
 
 
-### 3. TypeError
+#### 3. TypeError
 **Problema**: Operación con tipos incompatibles
 **Solución**: Validar tipos antes de operar
 
