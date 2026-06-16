@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "lab-01-python-entorno-herramientas"
+name = "lab01"
 version = "0.1.0"
 description = "Laboratorio 01: Entorno y herramientas de desarrollo Python"
-authors = ["Estudiante <estudiante@ejemplo.com>"]
+authors = ["Rodrigo <estudiante@ejemplo.com>"]
 readme = "README.md"
 packages = [{include = "src"}]
 
