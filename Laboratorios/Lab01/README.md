@@ -18,7 +18,7 @@ Lab01/
     └── ejemplo_corregido.py      # Código corregido siguiendo PEP 8
 ```
 
-### 1. Instalación de Poetry
+## 1. Instalación de Poetry
 
 Instalación recomendada (instalador oficial)
 Windows (PowerShell):
@@ -33,44 +33,44 @@ poetry --versión
 Poetry (version 2.4.1)
 
 
-### 2. Configuración del Entorno Virtual
+## 2. Configuración del Entorno Virtual
 
-# Navegar al directorio del proyecto
+### Navegar al directorio del proyecto
 cd Lab01
 
-# Crear y activar entorno virtual
+### Crear y activar entorno virtual
 poetry install
 
-# Activar el entorno virtual
+### Activar el entorno virtual
 poetry shell
 
-### 3. Instalación de Dependencias
+## 3. Instalación de Dependencias
 
 `pyproject.toml`:
 
-# Instalar dependencias de desarrollo
+### Instalar dependencias de desarrollo
 poetry install --with dev
 
-### 4. Configuración de Pre-commit Hooks
+## 4. Configuración de Pre-commit Hooks
 
-# Instalar hooks pre-commit
+### Instalar hooks pre-commit
 poetry run pre-commit install
 
-# Ejecutar hooks en todos los archivos
+### Ejecutar hooks en todos los archivos
 poetry run pre-commit run --all-files
 
-### 5. Corrección de Infracciones PEP 8
+## 5. Corrección de Infracciones PEP 8
 
-# black (Fromateo)
+### black (Fromateo)
 poetry run black src/ejemplo_con_errores.py
 
-# isort (Organizar imports)
+### isort (Organizar imports)
 poetry run isort src/ejemplo_con_errores.py
 
-# ruff (Analisis)
+### ruff (Analisis)
 poetry run ruff check src/ejemplo_con_errores.py
 
-# Corregir automáticamente con ruff
+### Corregir automáticamente con ruff
 poetry run ruff check --fix src/ejemplo_con_errores.py
 
 
