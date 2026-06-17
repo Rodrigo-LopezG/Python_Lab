@@ -27,13 +27,13 @@ class Timer:
     
     def __enter__(self):
         self.start_time = time.time()
-        print(f"⏱️  Iniciando: {self.description}")
+        print(f"  Iniciando: {self.description}")
         return self
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.end_time = time.time()
         self.elapsed = self.end_time - self.start_time
-        print(f"✅ Completado: {self.description} en {self.elapsed:.4f} segundos")
+        print(f" Completado: {self.description} en {self.elapsed:.4f} segundos")
         return False  # No suprimir excepciones
 
 
@@ -51,7 +51,7 @@ def temporizador_simple() -> Generator[Tuple[float, float], None, None]:
     finally:
         fin = time.time()
         duracion = fin - inicio
-        print(f"⏱️  Duración: {duracion:.4f} segundos")
+        print(f"  Duración: {duracion:.4f} segundos")
 
 
 @contextmanager
@@ -65,15 +65,15 @@ def medicion_memoria():
     proceso = psutil.Process(os.getpid())
     memoria_inicial = proceso.memory_info().rss / 1024 / 1024  # MB
     
-    print(f"🧠 Memoria inicial: {memoria_inicial:.2f} MB")
+    print(f" Memoria inicial: {memoria_inicial:.2f} MB")
     
     try:
         yield memoria_inicial
     finally:
         memoria_final = proceso.memory_info().rss / 1024 / 1024  # MB
         diferencia = memoria_final - memoria_inicial
-        print(f"🧠 Memoria final: {memoria_final:.2f} MB")
-        print(f"📊 Diferencia: {diferencia:+.2f} MB")
+        print(f" Memoria final: {memoria_final:.2f} MB")
+        print(f" Diferencia: {diferencia:+.2f} MB")
 
 
 class ArchivoSeguro:
@@ -96,7 +96,7 @@ class ArchivoSeguro:
                 backup_ruta = f"{self.ruta_archivo}.backup"
                 shutil.copy2(self.ruta_archivo, backup_ruta)
                 self.backup_creado = True
-                print(f"💾 Backup creado: {backup_ruta}")
+                print(f" Backup creado: {backup_ruta}")
             except FileNotFoundError:
                 pass  # No hay archivo original, no hay backup
         
@@ -112,7 +112,7 @@ class ArchivoSeguro:
             import shutil
             backup_ruta = f"{self.ruta_archivo}.backup"
             shutil.copy2(backup_ruta, self.ruta_archivo)
-            print(f"🔄 Backup restaurado debido a error")
+            print(f" Backup restaurado debido a error")
         
         return False  # No suprimir excepciones
 
@@ -122,7 +122,7 @@ def conexion_bd_simulada(nombre_db: str = "test.db"):
     """
     Context manager que simula una conexión a base de datos
     """
-    print(f"🔌 Conectando a la base de datos: {nombre_db}")
+    print(f" Conectando a la base de datos: {nombre_db}")
     
     class ConexionSimulada:
         def __init__(self, nombre):
@@ -136,7 +136,7 @@ def conexion_bd_simulada(nombre_db: str = "test.db"):
         
         def close(self):
             self.conectada = False
-            print(f"🔌 Desconectado de: {self.nombre}")
+            print(f" Desconectado de: {self.nombre}")
     
     conexion = ConexionSimulada(nombre_db)
     conexion.conectada = True
