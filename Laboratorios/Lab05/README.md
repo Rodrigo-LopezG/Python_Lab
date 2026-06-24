@@ -1,6 +1,6 @@
 # Laboratorio 05: Tipado estático y Calidad de Código
 
-## 🎯 Objetivos
+## Objetivo
 
 
 ## Estructura del laboratorio
