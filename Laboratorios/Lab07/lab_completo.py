@@ -77,13 +77,13 @@ class APILabManager:
         )
         
         self.base_url = "https://jsonplaceholder.typicode.com"
-        logger.info("🚀 APILabManager inicializado")
+        logger.info(" APILabManager inicializado")
     
     def get_all_users(self) -> List[User]:
         """
         Obtiene todos los usuarios de la API
         """
-        logger.info("👥 Obteniendo todos los usuarios...")
+        logger.info(" Obteniendo todos los usuarios...")
         
         try:
             response = self.client.get(f"{self.base_url}/users")
@@ -100,18 +100,18 @@ class APILabManager:
                 )
                 users.append(user)
             
-            logger.info(f"✅ {len(users)} usuarios obtenidos")
+            logger.info(f" {len(users)} usuarios obtenidos")
             return users
             
         except Exception as e:
-            logger.error(f"❌ Error obteniendo usuarios: {e}")
+            logger.error(f" Error obteniendo usuarios: {e}")
             raise HTTPClientError(f"No se pudieron obtener los usuarios: {e}")
     
     def get_user_posts(self, user_id: int) -> List[Post]:
         """
         Obtiene todos los posts de un usuario específico
         """
-        logger.info(f"📝 Obteniendo posts del usuario {user_id}...")
+        logger.info(f" Obteniendo posts del usuario {user_id}...")
         
         try:
             response = self.client.get(f"{self.base_url}/posts", params={"userId": user_id})
@@ -127,18 +127,18 @@ class APILabManager:
                 )
                 posts.append(post)
             
-            logger.info(f"✅ {len(posts)} posts obtenidos del usuario {user_id}")
+            logger.info(f" {len(posts)} posts obtenidos del usuario {user_id}")
             return posts
             
         except Exception as e:
-            logger.error(f"❌ Error obteniendo posts del usuario {user_id}: {e}")
+            logger.error(f" Error obteniendo posts del usuario {user_id}: {e}")
             raise HTTPClientError(f"No se pudieron obtener los posts: {e}")
     
     def create_post(self, user_id: int, title: str, body: str) -> Post:
         """
         Crea un nuevo post para un usuario
         """
-        logger.info(f"📤 Creando post para usuario {user_id}...")
+        logger.info(f" Creando post para usuario {user_id}...")
         
         try:
             post_data = {
@@ -157,18 +157,18 @@ class APILabManager:
                 userId=created_data['userId']
             )
             
-            logger.info(f"✅ Post creado con ID: {post.id}")
+            logger.info(f" Post creado con ID: {post.id}")
             return post
             
         except Exception as e:
-            logger.error(f"❌ Error creando post: {e}")
+            logger.error(f" Error creando post: {e}")
             raise HTTPClientError(f"No se pudo crear el post: {e}")
     
     def download_user_avatars(self, users: List[User]) -> List[str]:
         """
         Descarga avatares de ejemplo para los usuarios usando streaming
         """
-        logger.info("🖼️ Descargando avatares de usuarios...")
+        logger.info(" Descargando avatares de usuarios...")
         
         downloaded_files = []
         
@@ -178,22 +178,22 @@ class APILabManager:
                 avatar_url = f"https://api.dicebear.com/7.x/avataaars/svg?seed={user.email}"
                 destination = f"downloads/avatars/{user.id}_{user.name.replace(' ', '_')}.svg"
                 
-                logger.info(f"📥 Descargando avatar {i}/{len(users)}: {user.name}")
+                logger.info(f" Descargando avatar {i}/{len(users)}: {user.name}")
                 
                 file_path = self.client.download_stream(avatar_url, destination)
                 downloaded_files.append(file_path)
                 
             except Exception as e:
-                logger.warning(f"⚠️ No se pudo descargar avatar para {user.name}: {e}")
+                logger.warning(f" No se pudo descargar avatar para {user.name}: {e}")
         
-        logger.info(f"✅ {len(downloaded_files)} avatares descargados")
+        logger.info(f" {len(downloaded_files)} avatares descargados")
         return downloaded_files
     
     def generate_user_report(self, user_id: int) -> str:
         """
         Genera un reporte completo de un usuario con sus posts
         """
-        logger.info(f"📊 Generando reporte para usuario {user_id}...")
+        logger.info(f" Generando reporte para usuario {user_id}...")
         
         try:
             # Obtener información del usuario
@@ -238,92 +238,92 @@ class APILabManager:
             with open(report_path, 'w', encoding='utf-8') as f:
                 f.write(report)
             
-            logger.info(f"✅ Reporte guardado en: {report_path}")
+            logger.info(f" Reporte guardado en: {report_path}")
             return report_path
             
         except Exception as e:
-            logger.error(f"❌ Error generando reporte: {e}")
+            logger.error(f" Error generando reporte: {e}")
             raise HTTPClientError(f"No se pudo generar el reporte: {e}")
     
     def run_complete_lab(self):
         """
         Ejecuta el laboratorio completo demostrando todas las funcionalidades
         """
-        logger.info("🎯 Iniciando laboratorio completo...")
+        logger.info(" Iniciando laboratorio completo...")
         
         try:
             # 1. Obtener todos los usuarios
             print("\n" + "="*60)
-            print("👥 PASO 1: Obtener todos los usuarios")
+            print(" PASO 1: Obtener todos los usuarios")
             print("="*60)
             users = self.get_all_users()
             
             for user in users[:3]:  # Mostrar primeros 3
-                print(f"  👤 {user.name} ({user.email})")
+                print(f"   {user.name} ({user.email})")
             
             # 2. Obtener posts del primer usuario
             print("\n" + "="*60)
-            print("📝 PASO 2: Obtener posts de un usuario")
+            print(" PASO 2: Obtener posts de un usuario")
             print("="*60)
             first_user = users[0]
             posts = self.get_user_posts(first_user.id)
             
             print(f"  Posts de {first_user.name}:")
             for post in posts[:3]:  # Mostrar primeros 3
-                print(f"    📄 {post.title[:50]}...")
+                print(f"     {post.title[:50]}...")
             
             # 3. Crear un nuevo post
             print("\n" + "="*60)
-            print("📤 PASO 3: Crear un nuevo post")
+            print(" PASO 3: Crear un nuevo post")
             print("="*60)
             new_post = self.create_post(
                 user_id=first_user.id,
                 title="Mi post desde el laboratorio HTTP",
                 body="Este post fue creado usando nuestro cliente HTTP robusto"
             )
-            print(f"  ✅ Post creado con ID: {new_post.id}")
+            print(f"   Post creado con ID: {new_post.id}")
             
             # 4. Descargar avatares (primeros 5 usuarios)
             print("\n" + "="*60)
-            print("🖼️ PASO 4: Descargar avatares")
+            print(" PASO 4: Descargar avatares")
             print("="*60)
             downloaded_avatars = self.download_user_avatars(users[:5])
-            print(f"  ✅ {len(downloaded_avatars)} avatares descargados")
+            print(f"   {len(downloaded_avatars)} avatares descargados")
             
             # 5. Generar reporte
             print("\n" + "="*60)
-            print("📊 PASO 5: Generar reporte de usuario")
+            print(" PASO 5: Generar reporte de usuario")
             print("="*60)
             report_path = self.generate_user_report(first_user.id)
-            print(f"  ✅ Reporte generado: {report_path}")
+            print(f"   Reporte generado: {report_path}")
             
             # 6. Mostrar resumen
             print("\n" + "="*60)
-            print("🎉 LABORATORIO COMPLETADO EXITOSAMENTE")
+            print(" LABORATORIO COMPLETADO EXITOSAMENTE")
             print("="*60)
-            print(f"  👥 Usuarios procesados: {len(users)}")
-            print(f"  📝 Posts obtenidos: {len(posts)}")
-            print(f"  📤 Posts creados: 1")
-            print(f"  🖼️ Avatares descargados: {len(downloaded_avatars)}")
-            print(f"  📊 Reportes generados: 1")
-            print(f"  📁 Archivos de log: lab_http.log")
+            print(f"   Usuarios procesados: {len(users)}")
+            print(f"   Posts obtenidos: {len(posts)}")
+            print(f"   Posts creados: 1")
+            print(f"   Avatares descargados: {len(downloaded_avatars)}")
+            print(f"   Reportes generados: 1")
+            print(f"   Archivos de log: lab_http.log")
             
             return True
             
         except Exception as e:
-            logger.error(f"❌ Error en el laboratorio: {e}")
-            print(f"\n❌ El laboratorio falló: {e}")
+            logger.error(f" Error en el laboratorio: {e}")
+            print(f"\n El laboratorio falló: {e}")
             return False
         
         finally:
             self.client.close()
-            logger.info("🔒 Cliente HTTP cerrado")
+            logger.info(" Cliente HTTP cerrado")
 
 def main():
     """
     Función principal del laboratorio completo
     """
-    print("🐍 LABORATORIO COMPLETO: HTTP y Consumo de APIs con Python")
+    print(" LABORATORIO COMPLETO: HTTP y Consumo de APIs con Python")
     print("=" * 70)
     print("Este laboratorio integra todos los conceptos aprendidos:")
     print("✓ Cliente HTTP robusto con reintentos y timeouts")
@@ -343,13 +343,13 @@ def main():
     success = lab_manager.run_complete_lab()
     
     if success:
-        print("\n🎊 ¡Felicidades! Has completado el laboratorio con éxito.")
-        print("📚 Revisa los archivos generados en las carpetas:")
-        print("  📁 downloads/ - Avatares descargados")
-        print("  📁 reports/ - Reportes generados")
-        print("  📄 lab_http.log - Logs detallados")
+        print("\n ¡Felicidades! Has completado el laboratorio con éxito.")
+        print(" Revisa los archivos generados en las carpetas:")
+        print("   downloads/ - Avatares descargados")
+        print("   reports/ - Reportes generados")
+        print("   lab_http.log - Logs detallados")
     else:
-        print("\n❌ El laboratorio no pudo completarse. Revisa los logs.")
+        print("\n El laboratorio no pudo completarse. Revisa los logs.")
 
 if __name__ == "__main__":
     main()
