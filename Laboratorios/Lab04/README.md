@@ -1,6 +1,4 @@
-﻿# Laboratorio 04 - Objetos y Modelos de Datos en Python
-
-Este laboratorio te enseña, paso a paso y desde cero, a combinar:
+﻿# Laboratorio 04 - Objetos y Modelos de Datos
 
 - `dataclass` para modelar entidades de negocio (`Order`).
 - Métodos especiales (*dunder methods*) para comparaciones y representación.
@@ -34,8 +32,6 @@ pip install -r requirements.txt
 └── scripts/
     └── run_all_examples.py
 ```
-
-## 3) Qué vas a aprender en este laboratorio
 
 ### A. Entidad `Order` con `dataclass`
 
@@ -84,7 +80,7 @@ Archivo: `src/converters.py`
 - `to_output(order)`
   - Convierte `Order` -> `OrderOut`.
 
-## 4) Paso a paso sugerido para cumplir el laboratorio
+## 4) Paso a paso para el laboratorio
 
 1. Ejecuta `examples/example_1_basic.py` para ver el flujo completo de entrada->entidad->salida.
 2. Ejecuta `examples/example_2_validation.py` para entender cómo fallan validaciones en Pydantic y dataclass.
@@ -93,7 +89,7 @@ Archivo: `src/converters.py`
 
 ## 5) Cómo ejecutar
 
-### Opción A: uno por uno
+### uno por uno
 
 ```bash
 python examples/example_1_basic.py
@@ -102,15 +98,9 @@ python examples/example_3_compare_and_sort.py
 ```
 
 
-## 6) Entregable sugerido para tu laboratorio
-
-Incluye en tu entrega:
+## 6) Entregable 
 
 1. Código de la entidad `Order` con validaciones y cálculos derivados.
 2. Modelos `OrderIn`/`OrderOut` en Pydantic.
 3. Funciones de conversión.
-4. Evidencias de ejecución (capturas o salida de consola).
-5. Explicación corta de:
-   - por qué separaste entidad y validación externa,
-   - qué valida Pydantic y qué valida la entidad,
-   - cómo funciona el ordenamiento por `total`.
+
