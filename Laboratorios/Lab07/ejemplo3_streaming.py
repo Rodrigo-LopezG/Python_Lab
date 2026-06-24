@@ -47,7 +47,7 @@ class StreamingDownloader:
         self.timeout = timeout
         self.client = httpx.Client(timeout=httpx.Timeout(timeout))
         
-        print(f"📥 StreamingDownloader configurado:")
+        print(f" StreamingDownloader configurado:")
         print(f"  Tamaño de chunk: {chunk_size:,} bytes")
         print(f"  Timeout: {timeout} segundos")
 
@@ -69,8 +69,8 @@ class StreamingDownloader:
         Raises:
             DownloadError: Si hay error en la descarga
         """
-        print(f"📥 Iniciando descarga: {url}")
-        print(f"💾 Destino: {destination}")
+        print(f" Iniciando descarga: {url}")
+        print(f" Destino: {destination}")
         
         try:
             # Iniciar petición streaming
@@ -99,8 +99,8 @@ class StreamingDownloader:
                             if progress_callback:
                                 progress_callback(downloaded, total_size)
                 
-                print(f"✅ Descarga completada: {destination}")
-                print(f"📊 Tamaño final: {downloaded:,} bytes")
+                print(f" Descarga completada: {destination}")
+                print(f" Tamaño final: {downloaded:,} bytes")
                 
                 return destination
                 
@@ -127,7 +127,7 @@ class StreamingDownloader:
         Returns:
             str: Ruta del archivo descargado
         """
-        print(f"🔄 Descarga con reanudo: {url}")
+        print(f" Descarga con reanudo: {url}")
         
         for attempt in range(max_retries + 1):
             try:
@@ -135,7 +135,7 @@ class StreamingDownloader:
                 downloaded_bytes = 0
                 if os.path.exists(destination):
                     downloaded_bytes = os.path.getsize(destination)
-                    print(f"📁 Archivo parcial encontrado: {downloaded_bytes:,} bytes")
+                    print(f" Archivo parcial encontrado: {downloaded_bytes:,} bytes")
                 
                 # Headers para reanudar descarga
                 headers = {}
@@ -147,10 +147,10 @@ class StreamingDownloader:
                     
                     # Verificar si el servidor soporta reanudo
                     if response.status_code == 206:  # Partial Content
-                        print("✅ Servidor soporta reanudo de descarga")
+                        print(" Servidor soporta reanudo de descarga")
                         mode = 'ab'  # Append binary
                     else:
-                        print("⚠️ Servidor no soporta reanudo, descargando desde inicio")
+                        print(" Servidor no soporta reanudo, descargando desde inicio")
                         mode = 'wb'  # Write binary
                         downloaded_bytes = 0
                     
@@ -172,11 +172,11 @@ class StreamingDownloader:
                                 file.write(chunk)
                                 pbar.update(len(chunk))
                 
-                print(f"✅ Descarga completada: {destination}")
+                print(f" Descarga completada: {destination}")
                 return destination
                 
             except Exception as e:
-                print(f"❌ Intento {attempt + 1} falló: {e}")
+                print(f" Intento {attempt + 1} falló: {e}")
                 if attempt == max_retries:
                     raise DownloadError(f"Descarga falló después de {max_retries} reintentos")
                 
@@ -195,20 +195,20 @@ class StreamingDownloader:
         Returns:
             list: Lista de rutas de archivos descargados
         """
-        print(f"📦 Descargando {len(urls)} archivos (máx. {max_concurrent} concurrentes)")
+        print(f" Descargando {len(urls)} archivos (máx. {max_concurrent} concurrentes)")
         
         downloaded_files = []
         
         # Descargar secuencialmente (httpx no soporta streaming paralelo fácilmente)
         for i, (url, destination) in enumerate(urls, 1):
             try:
-                print(f"\n📥 Archivo {i}/{len(urls)}")
+                print(f"\n Archivo {i}/{len(urls)}")
                 result = self.download_with_progress(url, destination)
                 downloaded_files.append(result)
             except Exception as e:
-                print(f"❌ Error descargando {url}: {e}")
+                print(f" Error descargando {url}: {e}")
         
-        print(f"\n✅ Completadas {len(downloaded_files)}/{len(urls)} descargas")
+        print(f"\n Completadas {len(downloaded_files)}/{len(urls)} descargas")
         return downloaded_files
 
     def close(self):
@@ -219,7 +219,7 @@ def ejemplo_descarga_basica():
     """
     Ejemplo 3.1: Descarga básica con streaming
     """
-    print("📥 Ejemplo 3.1: Descarga básica con streaming")
+    print(" Ejemplo 3.1: Descarga básica con streaming")
     print("-" * 50)
     
     # URL de una imagen de prueba (tamaño mediano)
@@ -230,15 +230,15 @@ def ejemplo_descarga_basica():
     
     try:
         result = downloader.download_with_progress(url, destination)
-        print(f"✅ Archivo guardado en: {result}")
+        print(f" Archivo guardado en: {result}")
         
         # Verificar tamaño
         if os.path.exists(result):
             size = os.path.getsize(result)
-            print(f"📊 Tamaño del archivo: {size:,} bytes")
+            print(f" Tamaño del archivo: {size:,} bytes")
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
     finally:
         downloader.close()
 
@@ -246,7 +246,7 @@ def ejemplo_descarga_grande():
     """
     Ejemplo 3.2: Descargar un archivo grande
     """
-    print("\n📥 Ejemplo 3.2: Descarga de archivo grande")
+    print("\n Ejemplo 3.2: Descarga de archivo grande")
     print("-" * 50)
     
     # URL de un archivo de prueba más grande
@@ -259,14 +259,14 @@ def ejemplo_descarga_grande():
         """Callback personalizado para mostrar progreso"""
         if total > 0:
             percent = (downloaded / total) * 100
-            print(f"\r⏳ Progreso: {percent:.1f}% ({downloaded:,}/{total:,} bytes)", end="")
+            print(f"\r Progreso: {percent:.1f}% ({downloaded:,}/{total:,} bytes)", end="")
     
     try:
         result = downloader.download_with_progress(url, destination, progress_callback)
-        print(f"\n✅ Archivo grande descargado: {result}")
+        print(f"\n Archivo grande descargado: {result}")
         
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\n Error: {e}")
     finally:
         downloader.close()
 
@@ -274,7 +274,7 @@ def ejemplo_reanudo_descarga():
     """
     Ejemplo 3.3: Reanudar descarga interrumpida
     """
-    print("\n🔄 Ejemplo 3.3: Reanudo de descarga")
+    print("\n Ejemplo 3.3: Reanudo de descarga")
     print("-" * 50)
     
     # URL que soporta reanudo (la mayoría de los servidores modernos)
@@ -285,14 +285,14 @@ def ejemplo_reanudo_descarga():
     
     try:
         result = downloader.download_with_resume(url, destination, max_retries=2)
-        print(f"✅ Descarga completada: {result}")
+        print(f" Descarga completada: {result}")
         
         if os.path.exists(result):
             size = os.path.getsize(result)
-            print(f"📊 Tamaño final: {size:,} bytes ({size/1024/1024:.1f} MB)")
+            print(f" Tamaño final: {size:,} bytes ({size/1024/1024:.1f} MB)")
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
     finally:
         downloader.close()
 
@@ -300,7 +300,7 @@ def ejemplo_descargas_multiples():
     """
     Ejemplo 3.4: Descargar múltiples archivos
     """
-    print("\n📦 Ejemplo 3.4: Descargas múltiples")
+    print("\n Ejemplo 3.4: Descargas múltiples")
     print("-" * 50)
     
     # Lista de archivos a descargar
@@ -314,13 +314,13 @@ def ejemplo_descargas_multiples():
     
     try:
         downloaded = downloader.download_multiple(urls, max_concurrent=2)
-        print(f"\n✅ Archivos descargados:")
+        print(f"\n Archivos descargados:")
         for file_path in downloaded:
             size = os.path.getsize(file_path)
-            print(f"  📁 {file_path} ({size:,} bytes)")
+            print(f"  {file_path} ({size:,} bytes)")
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
     finally:
         downloader.close()
 
@@ -328,7 +328,7 @@ def ejemplo_streaming_procesamiento():
     """
     Ejemplo 3.5: Procesar archivo mientras se descarga
     """
-    print("\n⚙️ Ejemplo 3.5: Procesamiento durante streaming")
+    print("\n Ejemplo 3.5: Procesamiento durante streaming")
     print("-" * 50)
     
     # URL de un archivo de texto grande
@@ -338,7 +338,7 @@ def ejemplo_streaming_procesamiento():
     downloader = StreamingDownloader(chunk_size=1024)  # Chunks pequeños para procesamiento
     
     try:
-        print("📥 Descargando y procesando archivo...")
+        print(" Descargando y procesando archivo...")
         
         with downloader.client.stream('GET', url) as response:
             response.raise_for_status()
@@ -364,14 +364,14 @@ def ejemplo_streaming_procesamiento():
                         except:
                             pass
         
-        print(f"\n✅ Archivo procesado: {destination}")
-        print(f"📊 Estadísticas:")
+        print(f"\n Archivo procesado: {destination}")
+        print(f" Estadísticas:")
         print(f"  Caracteres procesados: {processed_chars:,}")
         print(f"  Palabras contadas: {word_count:,}")
         print(f"  Tamaño del archivo: {os.path.getsize(destination):,} bytes")
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
     finally:
         downloader.close()
 
@@ -379,7 +379,7 @@ def main():
     """
     Función principal que ejecuta todos los ejemplos
     """
-    print("🐍 Laboratorio HTTP con httpx - Ejemplo 3: Streaming de Archivos")
+    print(" Laboratorio HTTP con httpx - Ejemplo 3: Streaming de Archivos")
     print("=" * 70)
     print("Aprende a descargar archivos grandes usando streaming eficiente\n")
     
@@ -395,15 +395,15 @@ def main():
     ejemplo_streaming_procesamiento()
     
     print("\n" + "=" * 70)
-    print("🎉 Ejemplo 3 completado!")
-    print("📚 Conceptos aprendidos:")
-    print("  ✓ Streaming de archivos sin agotar memoria")
-    print("  ✓ Barras de progreso con tqdm")
-    print("  ✓ Reanudo de descargas interrumpidas")
-    print("  ✓ Descargas múltiples concurrentes")
-    print("  ✓ Procesamiento de datos durante la descarga")
-    print("  ✓ Manejo eficiente de memoria con chunks")
-    print("\n🚀 ¡Felicidades! Has completado todos los ejemplos del laboratorio")
+    print(" Ejemplo 3 completado!")
+    print(" Conceptos aprendidos:")
+    print("   Streaming de archivos sin agotar memoria")
+    print("   Barras de progreso con tqdm")
+    print("   Reanudo de descargas interrumpidas")
+    print("   Descargas múltiples concurrentes")
+    print("   Procesamiento de datos durante la descarga")
+    print("   Manejo eficiente de memoria con chunks")
+    print("\n ¡Felicidades! Has completado todos los ejemplos del laboratorio")
 
 if __name__ == "__main__":
     main()
