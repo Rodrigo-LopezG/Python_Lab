@@ -1,0 +1,24 @@
+2026-06-19 11:03:25,084 - __main__ - INFO -  Iniciando procesamiento completo
+2026-06-19 11:03:25,084 - __main__ - DEBUG - Ejemplo 3: Logging completo con subprocess
+2026-06-19 11:03:25,084 - __main__ - INFO -  Archivo CSV: datos_ejemplo.csv
+2026-06-19 11:03:25,100 - __main__ - INFO -  Archivo verificado con subprocess: datos_ejemplo.csv
+2026-06-19 11:03:25,100 - __main__ - INFO -  Iniciando lectura del CSV
+2026-06-19 11:03:25,100 - __main__ - DEBUG -  Fila 2 procesada: ID 1
+2026-06-19 11:03:25,100 - __main__ - DEBUG -  Fila 3 procesada: ID 2
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 4 procesada: ID 3
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 5 procesada: ID 4
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 6 procesada: ID 5
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 7 procesada: ID 6
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 8 procesada: ID 7
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 9 procesada: ID 8
+2026-06-19 11:03:25,101 - __main__ - DEBUG -  Fila 10 procesada: ID 9
+2026-06-19 11:03:25,102 - __main__ - DEBUG -  Fila 11 procesada: ID 10
+2026-06-19 11:03:25,102 - __main__ - INFO -  CSV procesado: 10 registros válidos, 0 errores
+2026-06-19 11:03:25,102 - __main__ - INFO -  Calculando métricas avanzadas
+2026-06-19 11:03:25,102 - __main__ - INFO -  Métricas calculadas exitosamente
+2026-06-19 11:03:25,102 - __main__ - INFO -  Exportando resultados a resultados_completos.json
+2026-06-19 11:03:25,103 - __main__ - INFO -  JSON exportado correctamente
+2026-06-19 11:03:25,103 - __main__ - INFO -  Creando resumen en resumen_procesamiento.txt
+2026-06-19 11:03:25,103 - __main__ - INFO -  Resumen creado correctamente
+2026-06-19 11:03:25,103 - __main__ - INFO -  Verificando archivo JSON creado con subprocess
+2026-06-19 11:03:25,123 - __main__ - INFO -  Procesamiento completado exitosamente
